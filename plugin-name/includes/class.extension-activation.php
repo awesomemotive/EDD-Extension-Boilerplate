@@ -41,7 +41,11 @@ class EDD_Extension_Activation {
         $this->plugin_file = $plugin_file;
 
         // Set plugin name
-        $this->plugin_name = str_replace( 'Easy Digital Downloads - ', '', $plugins[$this->plugin_path . '/' . $this->plugin_file]['Name'] );
+        if( isset( $plugins[$this->plugin_path . '/' . $this->plugin_file]['Name'] ) ) {
+            $this->plugin_name = str_replace( 'Easy Digital Downloads - ', '', $plugins[$this->plugin_path . '/' . $this->plugin_file]['Name'] );
+        } else {
+            $this->plugin_name = __( 'This plugin', 'edd' );
+        }
 
         // Is EDD installed?
         foreach( $plugins as $plugin_path => $plugin ) {
