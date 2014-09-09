@@ -51,6 +51,7 @@ class EDD_Extension_Activation {
         foreach( $plugins as $plugin_path => $plugin ) {
             if( $plugin['Name'] == 'Easy Digital Downloads' ) {
                 $this->has_edd = true;
+                break;
             }
         }
     }
