@@ -236,6 +236,7 @@ function EDD_Plugin_Name_load() {
 
         $activation = new EDD_Extension_Activation( plugin_dir_path( __FILE__ ), basename( __FILE__ ) );
         $activation = $activation->run();
+        return EDD_Plugin_Name::instance();
     } else {
         return EDD_Plugin_Name::instance();
     }
