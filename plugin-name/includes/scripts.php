@@ -34,7 +34,7 @@ function edd_plugin_name_admin_scripts( $hook ) {
         wp_enqueue_style( 'edd_plugin_name_admin_css', EDD_PLUGIN_NAME_URL . '/assets/css/admin' . $suffix . '.css' );
     }
 }
-add_action( 'admin_enqueue_scripts', 'edd_pdf_stamper_admin_scripts', 100 );
+add_action( 'admin_enqueue_scripts', 'edd_plugin_name_admin_scripts', 100 );
 
 
 /**
