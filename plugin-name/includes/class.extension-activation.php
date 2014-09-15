@@ -65,13 +65,6 @@ class EDD_Extension_Activation {
      * @return      void
      */
     public function run() {
-        // We need plugin.php!
-        require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-
-        // Deactivate this plugin
-        deactivate_plugins( $this->plugin_path . '/' . $this->plugin_file );
-        unset( $_GET['activate'] );
-
         // Display notice
         add_action( 'admin_notices', array( $this, 'missing_edd_notice' ) );
     }
