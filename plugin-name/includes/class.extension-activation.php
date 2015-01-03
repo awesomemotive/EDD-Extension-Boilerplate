@@ -18,7 +18,7 @@ if( !defined( 'ABSPATH' ) ) exit;
  */
 class EDD_Extension_Activation {
 
-    public $plugin_name, $plugin_path, $plugin_file, $has_edd;
+    public $plugin_name, $plugin_path, $plugin_file, $has_edd, $edd_base;
 
     /**
      * Setup the activation class
@@ -51,6 +51,7 @@ class EDD_Extension_Activation {
         foreach( $plugins as $plugin_path => $plugin ) {
             if( $plugin['Name'] == 'Easy Digital Downloads' ) {
                 $this->has_edd = true;
+                $this->edd_base = $plugin_path;
                 break;
             }
         }
@@ -79,9 +80,13 @@ class EDD_Extension_Activation {
      */
     public function missing_edd_notice() {
         if( $this->has_edd ) {
-            echo '<div class="error"><p>' . $this->plugin_name . __( ' requires Easy Digital Downloads! Please activate it to continue!', 'edd-extension-activation' ) . '</p></div>';
+            $url  = esc_url( wp_nonce_url( admin_url( 'plugins.php?action=activate&plugin=' . $this->edd_base ), 'activate-plugin_' . $this->edd_base ) );
+            $link = '<a href="' . $url . '">' . __( 'activate it', 'edd-extension-activation' ) . '</a>';
         } else {
-            echo '<div class="error"><p>' . $this->plugin_name . __( ' requires Easy Digital Downloads! Please install it to continue!', 'edd-extension-activation' ) . '</p></div>';
+            $url  = esc_url( wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=easy-digital-downloads' ), 'install-plugin_easy-digital-downloads' ) );
+            $link = '<a href="' . $url . '">' . __( 'install it', 'edd-extension-activation' ) . '</a>';
         }
+        
+        echo '<div class="error"><p>' . $this->plugin_name . sprintf( __( ' requires Easy Digital Downloads! Please %s to continue!', 'edd-extension-activation' ), $link ) . '</p></div>';
     }
 }
