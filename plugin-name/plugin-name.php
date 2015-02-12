@@ -212,21 +212,8 @@ if( !class_exists( 'EDD_Plugin_Name' ) ) {
 
             return array_merge( $settings, $new_settings );
         }
-        
-        
-    /*
-	 * Activation function fires when the plugin is activated.
-	 *
-	 * This function is fired when the activation hook is called by WordPress,
-	 * 
-	 */
-	public static function activation() {
-        /*Activation functions here*/
-
-        }
-        
-        
     }
+} // End if class_exists check
 
 
 /**
@@ -254,15 +241,19 @@ function EDD_Plugin_Name_load() {
         return EDD_Plugin_Name::instance();
     }
 }
+add_action( 'plugins_loaded', 'EDD_Plugin_Name_load' );
+
 
 /**
  * The activation hook is called outside of the singleton because WordPress doesn't
- * register the call from within the class hence, needs to be called outside and the
- * function also needs to be static.
+ * register the call from within the class, since we are preferring the plugins_loaded
+ * hook for compatibility, we also can't reference a function inside the plugin class
+ * for the activation function. If you need an activation function, put it here.
+ *
+ * @since       1.0.0
+ * @return      void
  */
-register_activation_hook( __FILE__, array( 'EDD_Plugin_Name', 'activation' ) );
-
-
-add_action( 'plugins_loaded', 'EDD_Plugin_Name_load' );
-
-} // End if class_exists check
+function edd_plugin_name_activation() {
+    /* Activation functions here */
+}
+register_activation_hook( __FILE__, 'edd_plugin_name_activation' );
