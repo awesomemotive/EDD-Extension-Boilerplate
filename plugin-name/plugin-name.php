@@ -27,7 +27,7 @@
  *   name, replacing spaces with underscores, is used to define classes
  *   in your extension.
  *
- * - Replace all instances of PLUGINNAME with the name of your plugin.
+ * - Replace all instances of PLUGIN_NAME with the name of your plugin.
  *   For the purposes of standardization, the uppercase form of the plugin
  *   name, removing spaces, is used to define plugin constants.
  *
